@@ -1,5 +1,7 @@
 package co.usa.ciclo3.ciclo3.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -11,8 +13,12 @@ public class Library implements Serializable {
     private Integer id;
     private String target;
     private Integer capacity;
-    private Integer category_id;
     private String name;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    @JsonIgnoreProperties("libraries")
+    private Category category;
 
     public Integer getId() {
         return id;
@@ -38,19 +44,19 @@ public class Library implements Serializable {
         this.capacity = capacity;
     }
 
-    public Integer getCategory_id() {
-        return category_id;
-    }
-
-    public void setCategory_id(Integer category_id) {
-        this.category_id = category_id;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }
