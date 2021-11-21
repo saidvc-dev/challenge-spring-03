@@ -25,12 +25,12 @@ public class Library implements Serializable {
     @JsonIgnoreProperties("libraries")
     private Category category;
 
-    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "library")
-    @JsonIgnoreProperties("library")
+    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "lib")
+    @JsonIgnoreProperties({"lib","client"})
     public List<Message> messages;
 
-    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "library")
-    @JsonIgnoreProperties("library")
+    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "lib")
+    @JsonIgnoreProperties("lib")
     public List<Reservation> reservations;
 
     public Integer getId() {
