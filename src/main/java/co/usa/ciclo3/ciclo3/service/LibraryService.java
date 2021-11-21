@@ -13,23 +13,23 @@ public class LibraryService {
     @Autowired
     private LibraryRepository libraryRepository;
 
-    public List<Library> getAll(){
+    public List<Library> getAll() {
         return libraryRepository.getAll();
     }
 
-    public Optional<Library> getLibrary(Integer id){
+    public Optional<Library> getLibrary(Integer id) {
         return libraryRepository.getLibrary(id);
     }
 
-    public Library save(Library library){
-        if(library.getId() == null){
+    public Library save(Library library) {
+        if (library.getId() == null) {
             return libraryRepository.save(library);
-        }else{
+        } else {
             Optional<Library> libraryAux = libraryRepository.getLibrary(library.getId());
-            if(libraryAux.isEmpty()){
+            if (libraryAux.isEmpty()) {
                 return libraryRepository.save(library);
-            }else{
-               return library;
+            } else {
+                return library;
             }
         }
     }
