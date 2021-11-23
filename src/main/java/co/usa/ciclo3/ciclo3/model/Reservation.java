@@ -25,20 +25,20 @@ public class Reservation implements Serializable {
     private Date devolutionDate;
     private String status;
     @DateTimeFormat(pattern = "YYYY-mm-dd hh:mm:ss")
-    @JsonFormat(pattern = "YYYY-mm-dd HH:mm:ss", timezone = "GMT-5")
-    /*Este campo no lo vi en la salida de las pruebas lo comento al igual que el get y el set*/
-   // private Date creationDate;
 
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    @JsonIgnoreProperties({"reservations","messages"})
-    private Client client;
+   
 
     @ManyToOne
     @JoinColumn(name = "library_id")
     @JsonIgnoreProperties("reservations")
     private Library lib;
-	private Score score;
+    
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    @JsonIgnoreProperties({"reservations","messages"})
+    private Client client;
+
+    private Score score;
 	
     public Integer getId() {
         return id;
@@ -88,13 +88,6 @@ public class Reservation implements Serializable {
         this.status = status;
     }
 
-//    public Date getCreationDate() {
-//        return creationDate;
-//    }
-//
-//    public void setCreationDate(Date creationDate) {
-//        this.creationDate = creationDate;
-//    }
 
 	public Score getScore() {
 		return score;

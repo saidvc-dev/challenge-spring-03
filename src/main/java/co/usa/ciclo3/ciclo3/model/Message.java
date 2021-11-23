@@ -18,14 +18,15 @@ public class Message implements Serializable {
 
 
     @ManyToOne
+    @JoinColumn(name = "library_id")
+    @JsonIgnoreProperties({"messages","reservations",})
+	private Library lib;
+    
+    @ManyToOne
     @JoinColumn(name = "client_id")
     @JsonIgnoreProperties({"messages","reservations"})
     private Client client;
 
-    @ManyToOne
-    @JoinColumn(name = "library_id")
-    @JsonIgnoreProperties({"messages","reservations",})
-	private Library lib;
 
     public Integer getId() {
         return id;

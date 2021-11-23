@@ -18,7 +18,7 @@ public class Category {
 
     @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "category")
     @JsonIgnoreProperties("category")
-    public List<Library> libraries;
+    public List<Library> libs;
 
     public Integer getId() {
         return id;
@@ -44,11 +44,11 @@ public class Category {
         this.description = description;
     }
 
-    public List<Library> getLibraries() {
-        return libraries;
+    public List<Library> getLibs() {
+        return libs;
     }
 
-    public void setLibraries(List<Library> libraries) {
-        this.libraries = libraries;
+    public void setLibs(List<Library> libraries) {
+        this.libs = libs;
     }
 }

@@ -22,7 +22,7 @@ public class Library implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    @JsonIgnoreProperties("libraries")
+    @JsonIgnoreProperties("libs")
     private Category category;
 
     @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "lib")
