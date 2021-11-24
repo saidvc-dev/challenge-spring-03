@@ -11,18 +11,22 @@ import java.util.Optional;
 @Repository
 public class MessageRepository {
 
-    @Autowired
-    private MessageCrudRepository messageCrudRepository;
+	@Autowired
+	private MessageCrudRepository messageCrudRepository;
 
-    public List<Message> getAll() {
-        return (List<Message>) messageCrudRepository.findAll();
-    }
+	public List<Message> getAll() {
+		return (List<Message>) messageCrudRepository.findAll();
+	}
 
-    public Optional<Message> getMessage(Integer id) {
-        return messageCrudRepository.findById(id);
-    }
+	public Optional<Message> getMessage(Integer id) {
+		return messageCrudRepository.findById(id);
+	}
 
-    public Message save(Message message) {
-        return messageCrudRepository.save(message);
-    }
+	public Message save(Message message) {
+		return messageCrudRepository.save(message);
+	}
+
+	public void deleteMessageById(int idMessage) {
+		messageCrudRepository.deleteById(idMessage);
+	}
 }

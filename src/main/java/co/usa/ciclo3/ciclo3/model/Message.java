@@ -2,60 +2,59 @@ package co.usa.ciclo3.ciclo3.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
 import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "Message")
 public class Message implements Serializable {
+	private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    @Column(length = 250)
-    private String messageText;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	@Column(length = 250)
+	private String messageText;
 
-
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    @JsonIgnoreProperties({"messages","reservations"})
-    private Client client;
-
-    @ManyToOne
-    @JoinColumn(name = "library_id")
-    @JsonIgnoreProperties({"messages","reservations",})
+	@ManyToOne
+	@JoinColumn(name = "library_id")
+	@JsonIgnoreProperties({ "messages", "reservations", })
 	private Library lib;
 
-    public Integer getId() {
-        return id;
-    }
+	@ManyToOne
+	@JoinColumn(name = "client_id")
+	@JsonIgnoreProperties({ "messages", "reservations" })
+	private Client client;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getMessageText() {
-        return messageText;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setMessageText(String messageText) {
-        this.messageText = messageText;
-    }
+	public String getMessageText() {
+		return messageText;
+	}
 
-    public Client getClient() {
-        return client;
-    }
+	public void setMessageText(String messageText) {
+		this.messageText = messageText;
+	}
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
+	public Client getClient() {
+		return client;
+	}
 
-    public Library getLib() {
-        return lib;
-    }
+	public void setClient(Client client) {
+		this.client = client;
+	}
 
-    public void setLib(Library library) {
-        this.lib = library;
-    }
+	public Library getLib() {
+		return lib;
+	}
+
+	public void setLib(Library library) {
+		this.lib = library;
+	}
 }
