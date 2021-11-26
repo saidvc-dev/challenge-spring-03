@@ -1,6 +1,7 @@
 package co.usa.ciclo3.ciclo3.web;
 
 
+
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,7 +11,8 @@ public class ControllerSecurity extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-    	http.antMatcher("/**").authorizeRequests()
+    
+    	http.antMatcher("/api/profile").authorizeRequests()
     	
     		.antMatchers(new String[] {"/api/Category/**","/api/Client/**",
             		"/api/Admin/**", "/api/Score/**", "/api/Lib/**",
@@ -19,11 +21,27 @@ public class ControllerSecurity extends WebSecurityConfigurerAdapter {
     	.and()
     	.oauth2Login();
     	
+    	
     	 
     	
      
     }
  
-    
-    
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//    
+//    http
+//    .authorizeRequests()
+//    .antMatchers("/**")
+//    .permitAll()
+//    .antMatchers(HttpMethod.GET, "/api/profile/view").authenticated()
+//    .and()
+//    .oauth2Login();
+//     
+//    }
+ 
+	
+	
+
+
 }

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/api/profile")
+@RequestMapping("/api/Profile")
 public class ControllerProfile {
 	@GetMapping("/view")
 	public Map<String, Object> viewProfile(@AuthenticationPrincipal OAuth2User oAuth2User ) {

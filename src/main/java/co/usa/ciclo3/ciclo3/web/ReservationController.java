@@ -7,7 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.nimbusds.jose.shaded.json.JSONArray;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -27,8 +33,10 @@ public class ReservationController {
 	}
 
 	@PostMapping("/save")
-	@ResponseStatus(HttpStatus.CREATED)
 	public Reservation save(@RequestBody Reservation reservation) {
+		if (reservation.getStatus() == null) {
+			reservation.setStatus("created");
+		}
 		return reservationService.save(reservation);
 	}
 
@@ -48,4 +56,33 @@ public class ReservationController {
 
 	}
 
+	@GetMapping("/{date1}/{date2}")
+	public List<Reservation> findReservation(@PathVariable("date1") String date1, @PathVariable("date2") String date2) {
+		return reservationService.datebyDate(date1, date2);
+	}
+
+	@GetMapping("/report-status")
+	public Map<String, String> reservtionStatus() {
+		Map<String, String> counStatus = new HashMap<String, String>();
+		List<String> status = reservationService.reservtionStatus();
+		
+		counStatus.put(status.get(0).substring(0, status.get(0).indexOf(",") - 1),
+				status.get(0).substring(status.get(0).lastIndexOf(",")));
+		
+		if (status.size() > 1) {
+			counStatus.put(status.get(1).substring(0, status.get(1).indexOf(",") - 1),
+					status.get(1).substring(status.get(1).lastIndexOf(",")));
+			
+		} 
+
+		return counStatus;
+
+	}
+
+	@GetMapping("/report-clients")
+	public List<Object> reservationClient() {
+		List<Object> status = new ArrayList<Object>();
+		status.add(reservationService.reservationClient());
+		return status;
+	}
 }
