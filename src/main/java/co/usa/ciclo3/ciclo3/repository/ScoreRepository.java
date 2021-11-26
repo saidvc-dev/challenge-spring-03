@@ -2,6 +2,7 @@ package co.usa.ciclo3.ciclo3.repository;
 
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import co.usa.ciclo3.ciclo3.model.Score;
@@ -24,7 +25,7 @@ public class ScoreRepository {
 		return scoreCrudRepository.save(score);
 	}
 
-	public void deleteById(int idScore) {
-		scoreCrudRepository.deleteById(idScore);
+	public void deleteScore(Score score) {
+		scoreCrudRepository.delete(score);
 	}
 }

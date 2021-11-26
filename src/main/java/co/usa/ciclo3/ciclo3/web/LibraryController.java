@@ -32,19 +32,15 @@ public class LibraryController {
 	}
 
 	@PutMapping("/update")
+	@ResponseStatus(HttpStatus.CREATED)
 	public Library update(@RequestBody Library library) {
 		return libraryService.update(library);
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Library> delete(@PathVariable("id") int idLibrary) {
-		try {
-			libraryService.deleteLibraryById(idLibrary);
-			return ResponseEntity.status(200).build();
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
-
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public Boolean deleteLibrary(@PathVariable("id") int id){
+		return libraryService.deleteLibrary(id);
 	}
 
 }

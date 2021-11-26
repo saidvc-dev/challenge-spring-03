@@ -25,7 +25,7 @@ public class CategoryRepository {
 		return categoryCrudRepository.save(category);
 	}
 
-	public void deleteById(int idCategory) {
-		categoryCrudRepository.deleteById(idCategory);
+	public void deleteCategory(Category cate) {
+		categoryCrudRepository.delete(cate);
 	}
 }

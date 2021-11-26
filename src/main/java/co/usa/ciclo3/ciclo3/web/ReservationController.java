@@ -40,31 +40,28 @@ public class ReservationController {
 		return reservationService.save(reservation);
 	}
 
+
 	@PutMapping("/update")
+	@ResponseStatus(HttpStatus.CREATED)
 	public Reservation update(@RequestBody Reservation reservation) {
 		return reservationService.update(reservation);
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Reservation> delete(@PathVariable("id") int idResevation) {
-		try {
-			reservationService.deleteReservationById(idResevation);
-			return ResponseEntity.status(200).build();
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
-
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public Boolean deleteReservation(@PathVariable("id") int id){
+		return reservationService.deleteReservation(id);
 	}
 
 	@GetMapping("/{date1}/{date2}")
 	public List<Reservation> findReservation(@PathVariable("date1") String date1, @PathVariable("date2") String date2) {
-		return reservationService.datebyDate(date1, date2);
+		return reservationService.dateByDate(date1, date2);
 	}
 
 	@GetMapping("/report-status")
 	public Map<String, String> reservtionStatus() {
 		Map<String, String> counStatus = new HashMap<String, String>();
-		List<String> status = reservationService.reservtionStatus();
+		List<String> status = reservationService.reservationStatus();
 		
 		counStatus.put(status.get(0).substring(0, status.get(0).indexOf(",") - 1),
 				status.get(0).substring(status.get(0).lastIndexOf(",")));

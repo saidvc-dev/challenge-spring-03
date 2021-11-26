@@ -32,20 +32,17 @@ public class MessageController {
 		return messageService.save(message);
 	}
 
+
 	@PutMapping("/update")
+	@ResponseStatus(HttpStatus.CREATED)
 	public Message update(@RequestBody Message message) {
 		return messageService.update(message);
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Message> delete(@PathVariable("id") int idMessage) {
-		try {
-			messageService.deleteMessageById(idMessage);
-			return ResponseEntity.status(200).build();
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
-
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public Boolean deleteMessage(@PathVariable("id") int id){
+		return messageService.deleteMessage(id);
 	}
 
 }

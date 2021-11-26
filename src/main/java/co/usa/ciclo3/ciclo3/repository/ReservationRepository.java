@@ -38,13 +38,14 @@ public class ReservationRepository {
 		return reservationCrudRepository.save(reservation);
 	}
 
-	public void deteteReservationById(int idReservation) {
-		reservationCrudRepository.deleteById(idReservation);
+	public void deleteReservation(Reservation reservation) {
+		reservationCrudRepository.delete(reservation);
 	}
-	public List<String> reservtionStatus() {
+
+	public List<String> reservationStatus() {
 		return reservationCrudRepository.reservationStatus();
 	}
-	public Map<Object,Object> reservtionClient() {
+	public Map<Object,Object> reservationClient() {
 		return  reservationCrudRepository.reservationClient();
 	}
 }
