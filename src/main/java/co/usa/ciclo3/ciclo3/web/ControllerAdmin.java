@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import co.usa.ciclo3.ciclo3.model.Admin;
 import co.usa.ciclo3.ciclo3.service.AdminService;
-
 
 @RestController
 @RequestMapping("/api/Admin")
@@ -33,7 +31,7 @@ public class ControllerAdmin {
 	@PostMapping("/save")
 	public ResponseEntity<Admin> addAdmin(@RequestBody Admin admin) {
 		try {
-			adminService.saveAdmin(admin);
+			adminService.save(admin);
 			return ResponseEntity.status(201).build();
 		} catch (Exception e) {
 			e.printStackTrace(System.out);
@@ -44,34 +42,19 @@ public class ControllerAdmin {
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<Admin> updateAdmin(@RequestBody Admin admin) {
-
-		if (adminService.findAdminId(admin.getId()) != null) {
-			adminService.saveAdmin(admin);
-			return ResponseEntity.status(201).build();
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
-
+	public Admin update(@RequestBody Admin admin) {
+		return adminService.update(admin);
 	}
 
-	@DeleteMapping("/delete")
-	public ResponseEntity<Admin> deleteClient(@RequestBody Admin admin) {
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Admin> delete(@PathVariable("id") int idAdmin) {
 		try {
-			adminService.deleteAdmin(admin.getId());
-
+			adminService.deleteAdmin(idAdmin);
 			return ResponseEntity.status(200).build();
 		} catch (Exception e) {
-			e.printStackTrace(System.out);
-
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
 		}
-	}
 
-	@GetMapping("/admin/{id}")
-	public Admin findById(@PathVariable int id) {
-		return adminService.findAdminId(id);
 	}
 
 }

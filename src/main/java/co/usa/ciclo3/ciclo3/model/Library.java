@@ -1,5 +1,8 @@
 package co.usa.ciclo3.ciclo3.model;
 
+/**
+ * This class maps to the Library entities
+ */
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -9,91 +12,182 @@ import java.util.List;
 @Entity
 @Table(name = "library")
 public class Library implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    @Column(length = 45)
-    private String target;
-    private Integer capacity;
-    @Column(length = 45)
-    private String name;
-    @Column(length = 250)
-    private String description;
+private static final long serialVersionUID = 1L;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    @JsonIgnoreProperties("libs")
-    private Category category;
+	/**
+	 * 
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	@Column(length = 45)
+	/**
+	 * 
+	 */
+	private String name;
+	/**
+	 * 
+	 */
+	@Column(length = 45)
+	private String target;
+	/**
+	 * 
+	 */
+	private Integer capacity;
+	/**
+	 * 
+	 */
+	@Column(length = 250)
+	private String description;
+	/**
+	 * 
+	 */
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	@JsonIgnoreProperties("libs")
+	private Category category;
+	/**
+	 * 
+	 */
+	@OneToMany(cascade = { CascadeType.PERSIST }, mappedBy = "lib")
+	@JsonIgnoreProperties({ "lib", "client" })
+	public List<Message> messages;
 
-    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "lib")
-    @JsonIgnoreProperties({"lib","client"})
-    public List<Message> messages;
+	/**
+	 * 
+	 */
+	@OneToMany(cascade = { CascadeType.PERSIST }, mappedBy = "lib")
+	@JsonIgnoreProperties("lib")
+	public List<Reservation> reservations;
 
-    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "lib")
-    @JsonIgnoreProperties("lib")
-    public List<Reservation> reservations;
+	/**
+	 * 
+	 * @return
+	 */
+	public Integer getId() {
+		return id;
+	}
 
-    public Integer getId() {
-        return id;
-    }
+	/**
+	 * 
+	 * @param id
+	 */
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	/**
+	 * 
+	 * @return
+	 */
+	public String getTarget() {
+		return target;
+	}
 
-    public String getTarget() {
-        return target;
-    }
+	/**
+	 * 
+	 * @param target
+	 */
+	public void setTarget(String target) {
+		this.target = target;
+	}
 
-    public void setTarget(String target) {
-        this.target = target;
-    }
+	/**
+	 * 
+	 * @return
+	 */
+	public Integer getCapacity() {
+		return capacity;
+	}
 
-    public Integer getCapacity() {
-        return capacity;
-    }
+	/**
+	 * 
+	 * @param capacity
+	 */
+	public void setCapacity(Integer capacity) {
+		this.capacity = capacity;
+	}
 
-    public void setCapacity(Integer capacity) {
-        this.capacity = capacity;
-    }
+	/**
+	 * 
+	 * @return
+	 */
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	/**
+	 * 
+	 * @param name
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public Category getCategory() {
-        return category;
-    }
+	/**
+	 * 
+	 * @return
+	 */
+	public Category getCategory() {
+		return category;
+	}
 
-    public void setCategory(Category category) {
-        this.category = category;
-    }
+	/**
+	 * 
+	 * @param category
+	 */
+	public void setCategory(Category category) {
+		this.category = category;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	/**
+	 * 
+	 * @return
+	 */
+	public String getDescription() {
+		return description;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	/**
+	 * 
+	 * @param description
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public List<Message> getMessages() {
-        return messages;
-    }
+	/**
+	 * 
+	 * @return
+	 */
+	public List<Message> getMessages() {
+		return messages;
+	}
 
-    public void setMessages(List<Message> messages) {
-        this.messages = messages;
-    }
+	/**
+	 * 
+	 * @param messages
+	 */
+	public void setMessages(List<Message> messages) {
+		this.messages = messages;
+	}
 
-    public List<Reservation> getReservations() {
-        return reservations;
-    }
+	/**
+	 * 
+	 * @return
+	 */
+	public List<Reservation> getReservations() {
+		return reservations;
+	}
 
-    public void setReservations(List<Reservation> reservations) {
-        this.reservations = reservations;
-    }
+	/**
+	 * 
+	 * @param reservations
+	 */
+	public void setReservations(List<Reservation> reservations) {
+		this.reservations = reservations;
+	}
+
+
 }

@@ -3,7 +3,6 @@ package co.usa.ciclo3.ciclo3.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -14,79 +13,88 @@ import java.util.Date;
 @Table(name = "Reservation")
 public class Reservation implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "YYYY-mm-dd hh:mm:ss")
-    private Date startDate;
-    @Temporal(TemporalType.TIMESTAMP)
-    @DateTimeFormat(pattern = "YYYY-mm-dd hh:mm:ss")
-    private Date devolutionDate;
-    private String status;
-    @DateTimeFormat(pattern = "YYYY-mm-dd hh:mm:ss")
+	private static final long serialVersionUID = 1L;
 
-   
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer idReservation;
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "YYYY-mm-dd hh:mm:ss")
+	private Date startDate;
+	@Temporal(TemporalType.TIMESTAMP)
+	@DateTimeFormat(pattern = "YYYY-mm-dd hh:mm:ss")
+	private Date devolutionDate;
+	private String status;
+	@DateTimeFormat(pattern = "YYYY-mm-dd hh:mm:ss")
+	@JsonFormat(pattern = "YYYY-mm-dd HH:mm:ss", timezone = "GMT-5")
+	/*
+	 * Este campo no lo vi en la salida de las pruebas lo comento al igual que el
+	 * get y el set
+	 */
+	// private Date creationDate;
 
-    @ManyToOne
-    @JoinColumn(name = "library_id")
-    @JsonIgnoreProperties("reservations")
-    private Library lib;
-    
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    @JsonIgnoreProperties({"reservations","messages"})
-    private Client client;
+	@ManyToOne
+	@JoinColumn(name = "library_id")
+	@JsonIgnoreProperties("reservations")
+	private Library lib;
 
-    private Score score;
-	
-    public Integer getId() {
-        return id;
-    }
+	@ManyToOne
+	@JoinColumn(name = "client_id")
+	@JsonIgnoreProperties({ "reservations", "messages" })
+	private Client client;
+	// @OneToOne(mappedBy = "reservation")
+	@OneToOne(mappedBy = "reservation")
+	@JsonIgnoreProperties({ "reservation" })
+	private Score score;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
-    public Date getStartDate() {
-        return startDate;
-    }
+	public Integer getIdReservation() {
+		return idReservation;
+	}
 
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
+	public void setIdReservation(Integer idReservation) {
+		this.idReservation = idReservation;
+	}
 
-    public Date getDevolutionDate() {
-        return devolutionDate;
-    }
+	public Date getStartDate() {
+		return startDate;
+	}
 
-    public void setDevolutionDate(Date devolutionDate) {
-        this.devolutionDate = devolutionDate;
-    }
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
 
-    public Client getClient() {
-        return client;
-    }
+	public Date getDevolutionDate() {
+		return devolutionDate;
+	}
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
+	public void setDevolutionDate(Date devolutionDate) {
+		this.devolutionDate = devolutionDate;
+	}
 
-    public Library getLib() {
-        return lib;
-    }
+	public Client getClient() {
+		return client;
+	}
 
-    public void setLib(Library library) {
-        this.lib = library;
-    }
+	public void setClient(Client client) {
+		this.client = client;
+	}
 
-    public String getStatus() {
-        return status;
-    }
+	public Library getLib() {
+		return lib;
+	}
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+	public void setLib(Library library) {
+		this.lib = library;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
 
 
 	public Score getScore() {
@@ -96,7 +104,5 @@ public class Reservation implements Serializable {
 	public void setScore(Score score) {
 		this.score = score;
 	}
-    
-    
-}
 
+}

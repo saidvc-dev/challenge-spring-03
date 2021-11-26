@@ -10,18 +10,22 @@ import java.util.Optional;
 
 @Repository
 public class LibraryRepository {
-    @Autowired
-    private LibraryCrudRepository libraryCrudRepository;
+	@Autowired
+	private LibraryCrudRepository libraryCrudRepository;
 
-    public List<Library> getAll() {
-        return (List<Library>) libraryCrudRepository.findAll();
-    }
+	public List<Library> getAll() {
+		return (List<Library>) libraryCrudRepository.findAll();
+	}
 
-    public Optional<Library> getLibrary(Integer id) {
-        return libraryCrudRepository.findById(id);
-    }
+	public Optional<Library> getLibrary(Integer id) {
+		return libraryCrudRepository.findById(id);
+	}
 
-    public Library save(Library library) {
-        return libraryCrudRepository.save(library);
-    }
+	public Library save(Library library) {
+		return libraryCrudRepository.save(library);
+	}
+
+	public void deleteLibraryById(int idLibrary) {
+		libraryCrudRepository.deleteById(idLibrary);
+	}
 }

@@ -10,27 +10,42 @@ import java.util.Optional;
 
 @Service
 public class LibraryService {
-    @Autowired
-    private LibraryRepository libraryRepository;
+	@Autowired
+	private LibraryRepository libraryRepository;
 
-    public List<Library> getAll() {
-        return libraryRepository.getAll();
-    }
+	public List<Library> getAll() {
+		return libraryRepository.getAll();
+	}
 
-    public Optional<Library> getLibrary(Integer id) {
-        return libraryRepository.getLibrary(id);
-    }
+	public Optional<Library> getLibrary(Integer id) {
+		return libraryRepository.getLibrary(id);
+	}
 
-    public Library save(Library library) {
-        if (library.getId() == null) {
-            return libraryRepository.save(library);
-        } else {
-            Optional<Library> libraryAux = libraryRepository.getLibrary(library.getId());
-            if (libraryAux.isEmpty()) {
-                return libraryRepository.save(library);
-            } else {
-                return library;
-            }
-        }
-    }
+	public Library save(Library library) {
+		if (library.getId() == null) {
+			return libraryRepository.save(library);
+		} else {
+			Optional<Library> libraryAux = libraryRepository.getLibrary(library.getId());
+			if (libraryAux.isEmpty()) {
+				return libraryRepository.save(library);
+			} else {
+				return library;
+			}
+		}
+	}
+
+	public Library update(Library library) {
+		if (library.getId() != null) {
+			if (!libraryRepository.getLibrary(library.getId()).isEmpty()) {
+				return libraryRepository.save(library);
+			}
+		}
+		return library;
+	}
+
+	public String deleteLibraryById(int idLibrary) {
+		libraryRepository.deleteLibraryById(idLibrary);
+		return "Library delete";
+	}
+
 }

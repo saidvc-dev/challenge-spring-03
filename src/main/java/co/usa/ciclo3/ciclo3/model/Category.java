@@ -8,47 +8,49 @@ import java.util.List;
 @Entity
 @Table(name = "Category")
 public class Category {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-    @Column(length = 45)
-    private String name;
-    @Column(length = 250)
-    private String description;
 
-    @OneToMany(cascade = {CascadeType.PERSIST}, mappedBy = "category")
-    @JsonIgnoreProperties("category")
-    public List<Library> libs;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	@Column(length = 45)
+	private String name;
+	@Column(length = 250)
+	private String description;
 
-    public Integer getId() {
-        return id;
-    }
+	@OneToMany(cascade = { CascadeType.PERSIST }, mappedBy = "category")
+	@JsonIgnoreProperties("category")
+	public List<Library> libs;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public List<Library> getLibs() {
-        return libs;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setLibs(List<Library> libraries) {
-        this.libs = libs;
-    }
+	public List<Library> getLibs() {
+		return libs;
+	}
+
+	public void setLibs(List<Library> libraries) {
+		this.libs = libraries;
+	}
+ 
 }

@@ -13,12 +13,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import co.usa.ciclo3.ciclo3.model.Score;
 import co.usa.ciclo3.ciclo3.service.ScoreService;
 
 @RestController
-@RequestMapping("/api/score")
+@RequestMapping("/api/Score")
 public class ControllerScore {
 	@Autowired
 	private ScoreService scoreService;
@@ -29,47 +28,24 @@ public class ControllerScore {
 	}
 
 	@PostMapping("/save")
-	public ResponseEntity<Score> addClient(@RequestBody Score score) {
-		try {
-			scoreService.saveScore(score);
-			return ResponseEntity.status(201).build();
-		} catch (Exception e) {
-			e.printStackTrace(System.out);
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-
-		}
-
+	public Score save(@RequestBody Score score) {
+		return scoreService.save(score);
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<Score> updateClient(@RequestBody Score score) {
-
-		if (scoreService.findScoreById(score.getResevationId()) != null) {
-			scoreService.saveScore(score);
-			return ResponseEntity.status(201).build();
-		} else {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
-
+	public Score update(@RequestBody Score score) {
+		return scoreService.update(score);
 	}
 
-	@DeleteMapping("/delete")
-	public ResponseEntity<Score> deleteScore(@RequestBody Score score) {
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Score> delete(@PathVariable("id") int idScore) {
 		try {
-			scoreService.deleteScore(score.getResevationId());
-
+			scoreService.deleteScore(idScore);
 			return ResponseEntity.status(200).build();
 		} catch (Exception e) {
-			e.printStackTrace(System.out);
-
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
 		}
-	}
 
-	@GetMapping("/score/{id}")
-	public Score findById(@PathVariable int id) {
-		return scoreService.findScoreById(id);
 	}
 
 }
