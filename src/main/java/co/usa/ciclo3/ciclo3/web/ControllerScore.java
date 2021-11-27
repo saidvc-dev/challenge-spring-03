@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import co.usa.ciclo3.ciclo3.model.Score;
 import co.usa.ciclo3.ciclo3.service.ScoreService;
@@ -28,11 +29,13 @@ public class ControllerScore {
 	}
 
 	@PostMapping("/save")
+	@ResponseStatus(HttpStatus.CREATED)
 	public Score save(@RequestBody Score score) {
 		return scoreService.save(score);
 	}
 
 	@PutMapping("/update")
+	@ResponseStatus(HttpStatus.CREATED)
 	public Score update(@RequestBody Score score) {
 		return scoreService.update(score);
 	}
@@ -41,7 +44,7 @@ public class ControllerScore {
 	public ResponseEntity<Score> delete(@PathVariable("id") int idScore) {
 		try {
 			scoreService.deleteScore(idScore);
-			return ResponseEntity.status(200).build();
+			return ResponseEntity.status(204).build();
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}

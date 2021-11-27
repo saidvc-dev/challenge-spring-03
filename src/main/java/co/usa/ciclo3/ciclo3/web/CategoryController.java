@@ -35,15 +35,17 @@ public class CategoryController {
 	}
 
 	@PutMapping("/update")
+	@ResponseStatus(HttpStatus.CREATED)
 	public Category update(@RequestBody Category category) {
 		return categoryService.update(category);
+	
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Category> delete(@PathVariable("id") int idCategory) {
 		try {
 			categoryService.deleteCategory(idCategory);
-			return ResponseEntity.status(200).build();
+			return ResponseEntity.status(204).build();
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}

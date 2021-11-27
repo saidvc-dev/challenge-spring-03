@@ -33,6 +33,7 @@ public class MessageController {
 	}
 
 	@PutMapping("/update")
+	@ResponseStatus(HttpStatus.CREATED)
 	public Message update(@RequestBody Message message) {
 		return messageService.update(message);
 	}
@@ -41,7 +42,7 @@ public class MessageController {
 	public ResponseEntity<Message> delete(@PathVariable("id") int idMessage) {
 		try {
 			messageService.deleteMessageById(idMessage);
-			return ResponseEntity.status(200).build();
+			return ResponseEntity.status(204).build();
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}

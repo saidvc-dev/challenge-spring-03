@@ -7,11 +7,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.nimbusds.jose.shaded.json.JSONArray;
+
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -33,6 +32,7 @@ public class ReservationController {
 	}
 
 	@PostMapping("/save")
+	@ResponseStatus(HttpStatus.CREATED)
 	public Reservation save(@RequestBody Reservation reservation) {
 		if (reservation.getStatus() == null) {
 			reservation.setStatus("created");
@@ -41,6 +41,7 @@ public class ReservationController {
 	}
 
 	@PutMapping("/update")
+	@ResponseStatus(HttpStatus.CREATED)
 	public Reservation update(@RequestBody Reservation reservation) {
 		return reservationService.update(reservation);
 	}
@@ -49,7 +50,7 @@ public class ReservationController {
 	public ResponseEntity<Reservation> delete(@PathVariable("id") int idResevation) {
 		try {
 			reservationService.deleteReservationById(idResevation);
-			return ResponseEntity.status(200).build();
+			return ResponseEntity.status(204).build();
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
@@ -79,10 +80,19 @@ public class ReservationController {
 
 	}
 
-	@GetMapping("/report-clients")
-	public List<Object> reservationClient() {
-		List<Object> status = new ArrayList<Object>();
-		status.add(reservationService.reservationClient());
-		return status;
-	}
+//	@GetMapping("/report-clients")
+//	public Map<Object,Object> reservationClient() {
+//	    Map<String, Object> reservationClient = new HashMap<String, Object>()
+//		List<Object> listClient = reservationService.reservationClient()
+//		reservationClient.put("total", li),
+//				status.get(0).substring(status.get(0).lastIndexOf(",")));
+//		
+//		if (status.size() > 1) {
+//			reservationClient.put(status.get(1).substring(0, status.get(1).indexOf(",") - 1),
+//					status.get(1).substring(status.get(1).lastIndexOf(",")));
+//			
+//		} 
+//
+//		return reservationService.reservationClient();
+//	}
 }

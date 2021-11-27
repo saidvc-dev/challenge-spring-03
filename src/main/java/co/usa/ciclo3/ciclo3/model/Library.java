@@ -42,7 +42,7 @@ public class Library implements Serializable {
 	/**
 	 * 
 	 */
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "category_id")
 	@JsonIgnoreProperties("libs")
 	private Category category;

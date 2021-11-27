@@ -17,8 +17,8 @@ public class LibraryRepository {
 		return (List<Library>) libraryCrudRepository.findAll();
 	}
 
-	public Optional<Library> getLibrary(Integer id) {
-		return libraryCrudRepository.findById(id);
+	public Library getLibrary(Integer id) {
+		return libraryCrudRepository.findById(id).orElse(null);
 	}
 
 	public Library save(Library library) {

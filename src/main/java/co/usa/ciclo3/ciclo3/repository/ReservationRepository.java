@@ -5,11 +5,6 @@ import co.usa.ciclo3.ciclo3.repository.crud.ReservationCrudRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +39,7 @@ public class ReservationRepository {
 	public List<String> reservtionStatus() {
 		return reservationCrudRepository.reservationStatus();
 	}
-	public Map<Object,Object> reservtionClient() {
+	public List<Object> reservtionClient() {
 		return  reservationCrudRepository.reservationClient();
 	}
 }

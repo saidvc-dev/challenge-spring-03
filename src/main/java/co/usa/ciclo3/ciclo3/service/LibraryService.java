@@ -17,7 +17,7 @@ public class LibraryService {
 		return libraryRepository.getAll();
 	}
 
-	public Optional<Library> getLibrary(Integer id) {
+	public Library getLibrary(Integer id) {
 		return libraryRepository.getLibrary(id);
 	}
 
@@ -25,8 +25,8 @@ public class LibraryService {
 		if (library.getId() == null) {
 			return libraryRepository.save(library);
 		} else {
-			Optional<Library> libraryAux = libraryRepository.getLibrary(library.getId());
-			if (libraryAux.isEmpty()) {
+			Library libraryAux = libraryRepository.getLibrary(library.getId());
+			if (libraryAux == null) {
 				return libraryRepository.save(library);
 			} else {
 				return library;
@@ -36,7 +36,8 @@ public class LibraryService {
 
 	public Library update(Library library) {
 		if (library.getId() != null) {
-			if (!libraryRepository.getLibrary(library.getId()).isEmpty()) {
+			if (libraryRepository.getLibrary(library.getId()) !=null) {
+				library.setCategory(libraryRepository.getLibrary(library.getId()).getCategory());
 				return libraryRepository.save(library);
 			}
 		}

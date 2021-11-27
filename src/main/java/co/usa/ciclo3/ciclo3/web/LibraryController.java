@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/api/Lib")
@@ -21,7 +21,7 @@ public class LibraryController {
 	}
 
 	@GetMapping("/{id}")
-	public Optional<Library> getLibrary(@PathVariable("id") Integer id) {
+	public Library getLibrary(@PathVariable("id") Integer id) {
 		return libraryService.getLibrary(id);
 	}
 
@@ -32,6 +32,7 @@ public class LibraryController {
 	}
 
 	@PutMapping("/update")
+	@ResponseStatus(HttpStatus.CREATED)
 	public Library update(@RequestBody Library library) {
 		return libraryService.update(library);
 	}
@@ -40,7 +41,7 @@ public class LibraryController {
 	public ResponseEntity<Library> delete(@PathVariable("id") int idLibrary) {
 		try {
 			libraryService.deleteLibraryById(idLibrary);
-			return ResponseEntity.status(200).build();
+			return ResponseEntity.status(204).build();
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}

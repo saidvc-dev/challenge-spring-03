@@ -33,6 +33,7 @@ public class ClientController {
 	}
 
 	@PutMapping("/update")
+	@ResponseStatus(HttpStatus.CREATED)
 	public Client update(@RequestBody Client client) {
 		return clientService.update(client);
 	}
@@ -41,7 +42,7 @@ public class ClientController {
 	public ResponseEntity<Client> delete(@PathVariable("id") int idClient) {
 		try {
 			clientService.deleteClient(idClient);
-			return ResponseEntity.status(200).build();
+			return ResponseEntity.status(204).build();
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}

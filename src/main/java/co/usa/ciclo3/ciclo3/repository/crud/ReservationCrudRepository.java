@@ -19,7 +19,7 @@ public interface ReservationCrudRepository extends CrudRepository<Reservation, I
 	
 	
 	@Query("SELECT   COUNT(*) AS total, r.client  AS client FROM Reservation r GROUP BY r.client")
-	public Map<Object,Object> reservationClient();
+	public List<Object> reservationClient();
 	
 		
 	

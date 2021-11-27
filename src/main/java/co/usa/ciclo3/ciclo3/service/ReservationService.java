@@ -5,7 +5,6 @@ import co.usa.ciclo3.ciclo3.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -68,7 +67,7 @@ public class ReservationService {
 		return reservationRepository.reservtionStatus();
 	}
 	
-	public Map<Object, Object> reservationClient() {
+	public List<Object> reservationClient() {
 		return reservationRepository.reservtionClient();
 	}
 	

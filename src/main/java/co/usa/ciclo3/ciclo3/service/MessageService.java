@@ -22,10 +22,10 @@ public class MessageService {
 	}
 
 	public Message save(Message message) {
-		if (message.getId() == null) {
+		if (message.getIdMessage() == null) {
 			return messageRepository.save(message);
 		} else {
-			Optional<Message> messageAux = messageRepository.getMessage(message.getId());
+			Optional<Message> messageAux = messageRepository.getMessage(message.getIdMessage());
 			if (messageAux.isEmpty()) {
 				return messageRepository.save(message);
 			} else {
@@ -35,8 +35,8 @@ public class MessageService {
 	}
 
 	public Message update(Message message) {
-		if (message.getId() != null) {
-			if (!messageRepository.getMessage(message.getId()).isEmpty()) {
+		if (message.getIdMessage() != null) {
+			if (!messageRepository.getMessage(message.getIdMessage()).isEmpty()) {
 				return messageRepository.save(message);
 			}
 		}

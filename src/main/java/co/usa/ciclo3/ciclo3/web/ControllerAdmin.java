@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import co.usa.ciclo3.ciclo3.model.Admin;
 import co.usa.ciclo3.ciclo3.service.AdminService;
@@ -29,6 +30,7 @@ public class ControllerAdmin {
 	}
 
 	@PostMapping("/save")
+	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Admin> addAdmin(@RequestBody Admin admin) {
 		try {
 			adminService.save(admin);
@@ -42,6 +44,7 @@ public class ControllerAdmin {
 	}
 
 	@PutMapping("/update")
+	@ResponseStatus(HttpStatus.CREATED)
 	public Admin update(@RequestBody Admin admin) {
 		return adminService.update(admin);
 	}
@@ -50,7 +53,7 @@ public class ControllerAdmin {
 	public ResponseEntity<Admin> delete(@PathVariable("id") int idAdmin) {
 		try {
 			adminService.deleteAdmin(idAdmin);
-			return ResponseEntity.status(200).build();
+			return ResponseEntity.status(204).build();
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
