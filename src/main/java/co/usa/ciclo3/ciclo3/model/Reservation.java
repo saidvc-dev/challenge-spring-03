@@ -12,6 +12,7 @@ import java.util.Date;
 @Entity
 @Table(name = "Reservation")
 public class Reservation implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -45,6 +46,7 @@ public class Reservation implements Serializable {
 	@OneToOne(mappedBy = "reservation")
 	@JsonIgnoreProperties({ "reservation" })
 	private Score score;
+
 
 	public Integer getIdReservation() {
 		return idReservation;
@@ -94,13 +96,6 @@ public class Reservation implements Serializable {
 		this.status = status;
 	}
 
-//    public Date getCreationDate() {
-//        return creationDate;
-//    }
-//
-//    public void setCreationDate(Date creationDate) {
-//        this.creationDate = creationDate;
-//    }
 
 	public Score getScore() {
 		return score;

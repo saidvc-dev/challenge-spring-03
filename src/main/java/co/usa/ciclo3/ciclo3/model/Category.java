@@ -8,6 +8,7 @@ import java.util.List;
 @Entity
 @Table(name = "Category")
 public class Category {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -51,4 +52,5 @@ public class Category {
 	public void setLibs(List<Library> libraries) {
 		this.libs = libraries;
 	}
+ 
 }
