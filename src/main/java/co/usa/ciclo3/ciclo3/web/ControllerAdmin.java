@@ -11,6 +11,7 @@ import co.usa.ciclo3.ciclo3.service.AdminService;
 
 @RestController
 @RequestMapping("/api/Admin")
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class ControllerAdmin {
 
 	@Autowired

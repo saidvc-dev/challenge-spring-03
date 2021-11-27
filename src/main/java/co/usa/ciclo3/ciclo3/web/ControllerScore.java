@@ -11,6 +11,7 @@ import co.usa.ciclo3.ciclo3.service.ScoreService;
 
 @RestController
 @RequestMapping("/api/Score")
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class ControllerScore {
 	@Autowired
 	private ScoreService scoreService;
