@@ -63,13 +63,13 @@ public class ReservationController {
 
 	@GetMapping("/report-status")
 
-	public Statistics reservtionStatus() {
-		List<String> statusResevation = reservationService.reservtionStatus();
-		String completed[] = statusResevation.get(0).split(",");
+	public Statistics reservationStatus() {
+		List<String> statusReservation = reservationService.reservtionStatus();
+		String completed[] = statusReservation.get(0).split(",");
 		Statistics statistics = new Statistics();
 		statistics.setCompleted(Integer.parseInt( completed[1]));
-		if(statusResevation.size() >1) {
-		   String cancelled[] = statusResevation.get(1).split(",");
+		if(statusReservation.size() >1) {
+		   String cancelled[] = statusReservation.get(1).split(",");
 		   statistics.setCancelled(Integer.parseInt(cancelled[1]));
 		}
   /*
