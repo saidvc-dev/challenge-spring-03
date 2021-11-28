@@ -15,9 +15,9 @@ public interface ReservationCrudRepository extends CrudRepository<Reservation, I
 	public List<Reservation> reservationByDate(@Param("date1") Date date1, @Param("date2") Date date2);
 
 	@Query("SELECT r.status, COUNT(*) FROM Reservation r GROUP BY r.status ORDER BY r.status desc")
-	public List<String[]> reservationStatus();
+	public List<String> reservationStatus();
 
 	@Query("SELECT   COUNT(r.client) AS total, r.client  AS client FROM Reservation r GROUP BY r.client")
-	public List<Map<String, Object>> reservationClient();
+	public List<Map<Object, Object>> reservationClient();
 
 }

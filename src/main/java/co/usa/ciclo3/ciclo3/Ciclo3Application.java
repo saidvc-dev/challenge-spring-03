@@ -20,9 +20,15 @@ public class Ciclo3Application {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("/*").allowedHeaders("*");
+				registry.addMapping("/**")
+				.allowedMethods("*")
+				.allowedHeaders("*")
+				.allowedOrigins("*")
+				.allowCredentials(false)
+				.maxAge(-1);
 			}
 		};
 	}
 
+	
 }

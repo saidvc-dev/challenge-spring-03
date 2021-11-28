@@ -4,7 +4,6 @@ import co.usa.ciclo3.ciclo3.model.Reservation;
 import co.usa.ciclo3.ciclo3.repository.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -63,11 +62,11 @@ public class ReservationService {
 		return reservationRepository.getByDate(date1, date2);
 	}
 
-	public List<String[]> reservtionStatus() {
+	public List<String> reservtionStatus() {
 		return reservationRepository.reservtionStatus();
 	}
 
-	public List<Map<String, Object>> reservationClient() {
+	public List<Map<Object, Object>> reservationClient() {
 		return reservationRepository.reservtionClient();
 	}
 

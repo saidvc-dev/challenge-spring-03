@@ -2,9 +2,9 @@ package co.usa.ciclo3.ciclo3.repository;
 
 import co.usa.ciclo3.ciclo3.model.Reservation;
 import co.usa.ciclo3.ciclo3.repository.crud.ReservationCrudRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -36,11 +36,11 @@ public class ReservationRepository {
 		reservationCrudRepository.deleteById(idReservation);
 	}
 
-	public List<String[]> reservtionStatus() {
+	public List<String> reservtionStatus() {
 		return reservationCrudRepository.reservationStatus();
 	}
 
-	public List<Map<String, Object>> reservtionClient() {
+	public List<Map<Object, Object>> reservtionClient() {
 		return reservationCrudRepository.reservationClient();
 	}
 }

@@ -1,13 +1,18 @@
 package co.usa.ciclo3.ciclo3.web;
 
 import co.usa.ciclo3.ciclo3.model.Reservation;
+import co.usa.ciclo3.ciclo3.model.Statistics;
 import co.usa.ciclo3.ciclo3.service.ReservationService;
+
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -54,23 +59,29 @@ public class ReservationController {
 
 	}
 
-	@GetMapping("/{date1}/{date2}")
+	@GetMapping("report-dates/{date1}/{date2}")
 	public List<Reservation> findReservation(@PathVariable("date1") String date1, @PathVariable("date2") String date2) {
 		return reservationService.datebyDate(date1, date2);
 	}
 
 	@GetMapping("/report-status")
-	public Map<String, String> reservtionStatus() {
-		List<String[]> statusResevation = reservationService.reservtionStatus();
-		Map<String, String> status = new HashMap<String, String>();
-		for (String[] reservation : statusResevation) {
-			status.put(reservation[0], reservation[1]);
+	public Statistics reservtionStatus() {
+		List<String> statusResevation = reservationService.reservtionStatus();
+		String completed[] = statusResevation.get(0).split(",");
+		Statistics statistics = new Statistics();
+		statistics.setCompleted(Integer.parseInt( completed[1]));
+		if(statusResevation.size() >1) {
+		   String cancelled[] = statusResevation.get(1).split(",");
+		   statistics.setCancelled(Integer.parseInt(cancelled[1]));
 		}
-		return status;
+		
+		return statistics;
+		
 	}
 
 	@GetMapping("/report-clients")
-	public List<Map<String, Object>> reservationClient() {
+	public List<Map<Object, Object>> reservationClient() {
+		
 		return reservationService.reservationClient();
 	}
 }
