@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @Table(name = "library")
 public class Library implements Serializable {
-private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 
@@ -42,7 +42,7 @@ private static final long serialVersionUID = 1L;
 	/**
 	 * 
 	 */
-	@ManyToOne
+	@ManyToOne()
 	@JoinColumn(name = "category_id")
 	@JsonIgnoreProperties("libs")
 	private Category category;
@@ -188,6 +188,5 @@ private static final long serialVersionUID = 1L;
 	public void setReservations(List<Reservation> reservations) {
 		this.reservations = reservations;
 	}
-
 
 }

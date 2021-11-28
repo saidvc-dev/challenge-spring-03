@@ -52,5 +52,5 @@ public class Category {
 	public void setLibs(List<Library> libraries) {
 		this.libs = libraries;
 	}
- 
+
 }

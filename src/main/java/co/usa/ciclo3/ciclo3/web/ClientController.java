@@ -44,6 +44,7 @@ public class ClientController {
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public Boolean deleteClient(@PathVariable("id") int id){
 		return clientService.deleteClient(id);
+
 	}
 
 }

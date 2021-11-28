@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public class LibraryRepository {
@@ -17,8 +16,8 @@ public class LibraryRepository {
 		return (List<Library>) libraryCrudRepository.findAll();
 	}
 
-	public Optional<Library> getLibrary(Integer id) {
-		return libraryCrudRepository.findById(id);
+	public Library getLibrary(Integer id) {
+		return libraryCrudRepository.findById(id).orElse(null);
 	}
 
 	public Library save(Library library) {

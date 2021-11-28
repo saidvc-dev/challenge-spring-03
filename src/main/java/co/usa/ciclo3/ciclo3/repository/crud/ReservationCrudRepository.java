@@ -12,15 +12,12 @@ import org.springframework.data.repository.query.Param;
 public interface ReservationCrudRepository extends CrudRepository<Reservation, Integer> {
 
 	@Query("SELECT r FROM  Reservation r WHERE r.startDate BETWEEN :date1 AND :date2 ")
-	public List<Reservation>reservationByDate(@Param("date1") Date  date1, @Param("date2") Date date2);
+	public List<Reservation> reservationByDate(@Param("date1") Date date1, @Param("date2") Date date2);
 
 	@Query("SELECT r.status, COUNT(*) FROM Reservation r GROUP BY r.status ORDER BY r.status desc")
 	public List<String> reservationStatus();
-	
-	
-	@Query("SELECT   COUNT(*) AS total, r.client  AS client FROM Reservation r GROUP BY r.client")
-	public Map<Object,Object> reservationClient();
-	
-		
-	
+
+	@Query("SELECT   COUNT(r.client) AS total, r.client  AS client FROM Reservation r GROUP BY r.client")
+	public List<Map<Object, Object>> reservationClient();
+
 }

@@ -1,17 +1,18 @@
 package co.usa.ciclo3.ciclo3.web;
 
 import co.usa.ciclo3.ciclo3.model.Reservation;
+import co.usa.ciclo3.ciclo3.model.Statistics;
 import co.usa.ciclo3.ciclo3.service.ReservationService;
+
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.nimbusds.jose.shaded.json.JSONArray;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -34,6 +35,7 @@ public class ReservationController {
 	}
 
 	@PostMapping("/save")
+	@ResponseStatus(HttpStatus.CREATED)
 	public Reservation save(@RequestBody Reservation reservation) {
 		if (reservation.getStatus() == null) {
 			reservation.setStatus("created");
@@ -54,33 +56,36 @@ public class ReservationController {
 		return reservationService.deleteReservation(id);
 	}
 
-	@GetMapping("/{date1}/{date2}")
+	@GetMapping("report-dates/{date1}/{date2}")
 	public List<Reservation> findReservation(@PathVariable("date1") String date1, @PathVariable("date2") String date2) {
 		return reservationService.dateByDate(date1, date2);
 	}
 
 	@GetMapping("/report-status")
+
+	public Statistics reservtionStatus() {
+		List<String> statusResevation = reservationService.reservtionStatus();
+		String completed[] = statusResevation.get(0).split(",");
+		Statistics statistics = new Statistics();
+		statistics.setCompleted(Integer.parseInt( completed[1]));
+		if(statusResevation.size() >1) {
+		   String cancelled[] = statusResevation.get(1).split(",");
+		   statistics.setCancelled(Integer.parseInt(cancelled[1]));
+		}
+  /*
 	public Map<String, String> reservationStatus() {
 		Map<String, String> counStatus = new HashMap<String, String>();
 		List<String> status = reservationService.reservationStatus();
-		
-		counStatus.put(status.get(0).substring(0, status.get(0).indexOf(",") - 1),
-				status.get(0).substring(status.get(0).lastIndexOf(",")));
-		
-		if (status.size() > 1) {
-			counStatus.put(status.get(1).substring(0, status.get(1).indexOf(",") - 1),
-					status.get(1).substring(status.get(1).lastIndexOf(",")));
-			
-		} 
+    */
 
-		return counStatus;
-
+		
+		return statistics;
+		
 	}
 
 	@GetMapping("/report-clients")
-	public List<Object> reservationClient() {
-		List<Object> status = new ArrayList<Object>();
-		status.add(reservationService.reservationClient());
-		return status;
+	public List<Map<Object, Object>> reservationClient() {
+		
+		return reservationService.reservationClient();
 	}
 }

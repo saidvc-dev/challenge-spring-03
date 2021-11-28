@@ -4,9 +4,7 @@ import co.usa.ciclo3.ciclo3.model.Library;
 import co.usa.ciclo3.ciclo3.repository.LibraryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class LibraryService {
@@ -17,7 +15,7 @@ public class LibraryService {
 		return libraryRepository.getAll();
 	}
 
-	public Optional<Library> getLibrary(Integer id) {
+	public Library getLibrary(Integer id) {
 		return libraryRepository.getLibrary(id);
 	}
 
@@ -25,16 +23,23 @@ public class LibraryService {
 		if (library.getId() == null) {
 			return libraryRepository.save(library);
 		} else {
-			Optional<Library> libraryAux = libraryRepository.getLibrary(library.getId());
-			if (libraryAux.isEmpty()) {
+			Library libraryAux = libraryRepository.getLibrary(library.getId());
+			if (libraryAux == null) {
 				return libraryRepository.save(library);
 			} else {
 				return library;
 			}
 		}
 	}
+   /*
+	 public Library update(Library library) {
 
-	public Library update(Library library) {
+		if (library.getId() != null) {
+			if (libraryRepository.getLibrary(library.getId()) != null) {
+				library.setCategory(libraryRepository.getLibrary(library.getId()).getCategory());
+				return libraryRepository.save(library);
+        */
+
 		if(library.getId()!= null){
 			Optional<Library> lib= libraryRepository.getLibrary(library.getId());
 			if(!lib.isEmpty()){
@@ -51,6 +56,7 @@ public class LibraryService {
 					lib.get().setDescription(library.getDescription());
 				}
 				libraryRepository.save(lib.get());
+
 			}
 		}
 		return library;

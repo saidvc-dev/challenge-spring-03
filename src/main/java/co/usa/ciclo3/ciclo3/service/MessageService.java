@@ -36,6 +36,11 @@ public class MessageService {
 
 
 	public Message update(Message message) {
+        /*
+		if (message.getIdMessage() != null) {
+			if (!messageRepository.getMessage(message.getIdMessage()).isEmpty()) {
+				return messageRepository.save(message);
+        */
 		if(message.getIdMessage()!= null){
 			Optional<Message> m= messageRepository.getMessage(message.getIdMessage());
 			if(!m.isEmpty()){
@@ -43,6 +48,7 @@ public class MessageService {
 					m.get().setMessageText(message.getMessageText());
 				}
 				messageRepository.save(m.get());
+
 			}
 		}
 		return message;

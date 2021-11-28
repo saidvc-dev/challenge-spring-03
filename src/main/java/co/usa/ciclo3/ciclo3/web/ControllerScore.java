@@ -22,6 +22,7 @@ public class ControllerScore {
 	}
 
 	@PostMapping("/save")
+	@ResponseStatus(HttpStatus.CREATED)
 	public Score save(@RequestBody Score score) {
 		return scoreService.save(score);
 	}
@@ -33,9 +34,11 @@ public class ControllerScore {
 	}
 
 	@DeleteMapping("/{id}")
+
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public Boolean deleteScore(@PathVariable("id") int id){
 		return scoreService.deleteScore(id);
+
 	}
 
 }

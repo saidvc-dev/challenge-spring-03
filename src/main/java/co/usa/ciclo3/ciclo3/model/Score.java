@@ -2,7 +2,6 @@ package co.usa.ciclo3.ciclo3.model;
 
 import java.io.Serializable;
 
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,8 +18,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Table(name = "Scores")
 public class Score implements Serializable {
-	private static final long serialVersionUID = 1L;	
-    
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -29,16 +28,16 @@ public class Score implements Serializable {
 	@Column(name = "score")
 	private Integer score;
 	@Column(length = 250)
-	private String message;	
+	private String message;
 	@OneToOne()
 	@JoinColumn()
-	@JsonIgnoreProperties({"score"})
-    private Reservation reservation;
-	
+	@JsonIgnoreProperties({ "score" })
+	private Reservation reservation;
+
 	public Score() {
-		
+
 	}
-   
+
 
 	
 	public Score(int id, Integer score, String message, Reservation reservation) {
@@ -49,19 +48,13 @@ public class Score implements Serializable {
 		this.reservation = reservation;
 	}
 
-
-
 	public Integer getId() {
 		return id;
 	}
 
-
-
 	public void setId(Integer id) {
 		this.id = id;
 	}
-
-
 
 	public Integer getScore() {
 		return score;
@@ -78,14 +71,12 @@ public class Score implements Serializable {
 		this.message = message;
 	}
 
-	
-	
 	public Reservation getReservation() {
 		return reservation;
 	}
+
 	public void setReservation(Reservation reservation) {
 		this.reservation = reservation;
 	}
 
-	
 }

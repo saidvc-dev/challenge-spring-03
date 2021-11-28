@@ -16,13 +16,10 @@ public class Message implements Serializable {
 	@Column(length = 250)
 	private String messageText;
 
-
 	@ManyToOne
 	@JoinColumn(name = "library_id")
 	@JsonIgnoreProperties({ "messages", "reservations", })
 	private Library lib;
-   
-
 
 	@ManyToOne
 	@JoinColumn(name = "client_id")
@@ -33,9 +30,11 @@ public class Message implements Serializable {
 		return idMessage;
 	}
 
-	public void setIdMessage(Integer id) {
-		this.idMessage = id;
-	}
+
+	public void setIdMessage(Integer idMessage) {
+		this.idMessage = idMessage;
+ }
+
 
 	public String getMessageText() {
 		return messageText;

@@ -23,16 +23,8 @@ public class ClientService {
 	}
 
 	public Client save(Client client) {
-		if (client.getIdClient() == null) {
-			return clientRepository.save(client);
-		} else {
-			Optional<Client> clientAux = clientRepository.getClient(client.getIdClient());
-			if (clientAux.isEmpty()) {
-				return clientRepository.save(client);
-			} else {
-				return client;
-			}
-		}
+		return clientRepository.save(client);
+
 	}
 
 	public Client update(Client client) {
