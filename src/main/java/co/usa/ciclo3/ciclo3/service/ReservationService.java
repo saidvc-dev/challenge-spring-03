@@ -62,14 +62,13 @@ public class ReservationService {
 		Date date2 = Date.from(localDate2.atStartOfDay(ZoneId.systemDefault()).toInstant());
 		return reservationRepository.getByDate(date1, date2);
 	}
-	  
-	public List<String> reservtionStatus() {
+
+	public List<String[]> reservtionStatus() {
 		return reservationRepository.reservtionStatus();
 	}
-	
-	public List<Object> reservationClient() {
+
+	public List<Map<String, Object>> reservationClient() {
 		return reservationRepository.reservtionClient();
 	}
-	
 
 }

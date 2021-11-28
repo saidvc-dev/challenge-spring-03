@@ -7,9 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,35 +61,16 @@ public class ReservationController {
 
 	@GetMapping("/report-status")
 	public Map<String, String> reservtionStatus() {
-		Map<String, String> counStatus = new HashMap<String, String>();
-		List<String> status = reservationService.reservtionStatus();
-		
-		counStatus.put(status.get(0).substring(0, status.get(0).indexOf(",") - 1),
-				status.get(0).substring(status.get(0).lastIndexOf(",")));
-		
-		if (status.size() > 1) {
-			counStatus.put(status.get(1).substring(0, status.get(1).indexOf(",") - 1),
-					status.get(1).substring(status.get(1).lastIndexOf(",")));
-			
-		} 
-
-		return counStatus;
-
+		List<String[]> statusResevation = reservationService.reservtionStatus();
+		Map<String, String> status = new HashMap<String, String>();
+		for (String[] reservation : statusResevation) {
+			status.put(reservation[0], reservation[1]);
+		}
+		return status;
 	}
 
-//	@GetMapping("/report-clients")
-//	public Map<Object,Object> reservationClient() {
-//	    Map<String, Object> reservationClient = new HashMap<String, Object>()
-//		List<Object> listClient = reservationService.reservationClient()
-//		reservationClient.put("total", li),
-//				status.get(0).substring(status.get(0).lastIndexOf(",")));
-//		
-//		if (status.size() > 1) {
-//			reservationClient.put(status.get(1).substring(0, status.get(1).indexOf(",") - 1),
-//					status.get(1).substring(status.get(1).lastIndexOf(",")));
-//			
-//		} 
-//
-//		return reservationService.reservationClient();
-//	}
+	@GetMapping("/report-clients")
+	public List<Map<String, Object>> reservationClient() {
+		return reservationService.reservationClient();
+	}
 }

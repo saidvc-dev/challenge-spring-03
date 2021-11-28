@@ -24,7 +24,6 @@ public class ReservationRepository {
 		return (List<Reservation>) reservationCrudRepository.reservationByDate(date1, date2);
 	}
 
-
 	public Optional<Reservation> getReservation(Integer id) {
 		return reservationCrudRepository.findById(id);
 	}
@@ -36,10 +35,12 @@ public class ReservationRepository {
 	public void deteteReservationById(int idReservation) {
 		reservationCrudRepository.deleteById(idReservation);
 	}
-	public List<String> reservtionStatus() {
+
+	public List<String[]> reservtionStatus() {
 		return reservationCrudRepository.reservationStatus();
 	}
-	public List<Object> reservtionClient() {
-		return  reservationCrudRepository.reservationClient();
+
+	public List<Map<String, Object>> reservtionClient() {
+		return reservationCrudRepository.reservationClient();
 	}
 }

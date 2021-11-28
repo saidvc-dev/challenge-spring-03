@@ -4,9 +4,7 @@ import co.usa.ciclo3.ciclo3.model.Library;
 import co.usa.ciclo3.ciclo3.repository.LibraryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class LibraryService {
@@ -36,7 +34,7 @@ public class LibraryService {
 
 	public Library update(Library library) {
 		if (library.getId() != null) {
-			if (libraryRepository.getLibrary(library.getId()) !=null) {
+			if (libraryRepository.getLibrary(library.getId()) != null) {
 				library.setCategory(libraryRepository.getLibrary(library.getId()).getCategory());
 				return libraryRepository.save(library);
 			}

@@ -16,13 +16,10 @@ public class Message implements Serializable {
 	@Column(length = 250)
 	private String messageText;
 
-
 	@ManyToOne
 	@JoinColumn(name = "library_id")
 	@JsonIgnoreProperties({ "messages", "reservations", })
 	private Library lib;
-   
-
 
 	@ManyToOne
 	@JoinColumn(name = "client_id")

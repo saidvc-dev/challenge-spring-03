@@ -38,7 +38,7 @@ public class CategoryController {
 	@ResponseStatus(HttpStatus.CREATED)
 	public Category update(@RequestBody Category category) {
 		return categoryService.update(category);
-	
+
 	}
 
 	@DeleteMapping("/{id}")
