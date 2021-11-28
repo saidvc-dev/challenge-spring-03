@@ -31,20 +31,44 @@ public class LibraryService {
 			}
 		}
 	}
+   /*
+	 public Library update(Library library) {
 
-	public Library update(Library library) {
 		if (library.getId() != null) {
 			if (libraryRepository.getLibrary(library.getId()) != null) {
 				library.setCategory(libraryRepository.getLibrary(library.getId()).getCategory());
 				return libraryRepository.save(library);
+        */
+
+		if(library.getId()!= null){
+			Optional<Library> lib= libraryRepository.getLibrary(library.getId());
+			if(!lib.isEmpty()){
+				if(library.getName()!=null){
+					lib.get().setName(library.getName());
+				}
+				if(library.getTarget()!=null){
+					lib.get().setTarget(library.getTarget());
+				}
+				if(library.getCapacity()!=null){
+					lib.get().setCapacity(library.getCapacity());
+				}
+				if(library.getDescription()!=null){
+					lib.get().setDescription(library.getDescription());
+				}
+				libraryRepository.save(lib.get());
+
 			}
 		}
 		return library;
 	}
 
-	public String deleteLibraryById(int idLibrary) {
-		libraryRepository.deleteLibraryById(idLibrary);
-		return "Library delete";
+	public boolean deleteLibrary(Integer id){
+		Boolean d = getLibrary(id).map(library -> {
+			libraryRepository.deleteLibrary(library);
+			return true;
+		}).orElse(false);
+		return d;
 	}
+
 
 }

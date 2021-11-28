@@ -14,11 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import co.usa.ciclo3.ciclo3.model.Admin;
 import co.usa.ciclo3.ciclo3.service.AdminService;
 
 @RestController
 @RequestMapping("/api/Admin")
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class ControllerAdmin {
 
 	@Autowired
@@ -43,13 +45,15 @@ public class ControllerAdmin {
 
 	}
 
+
 	@PutMapping("/update")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Admin update(@RequestBody Admin admin) {
 		return adminService.update(admin);
 	}
 
-	@DeleteMapping("/{id}")
+
+  /*
 	public ResponseEntity<Admin> delete(@PathVariable("id") int idAdmin) {
 		try {
 			adminService.deleteAdmin(idAdmin);
@@ -57,6 +61,11 @@ public class ControllerAdmin {
 		} catch (Exception e) {
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 		}
+   */
+	@DeleteMapping("/{id}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public Boolean deleteAdmin(@PathVariable("id") int id){
+		return adminService.deleteAdmin(id);
 
 	}
 

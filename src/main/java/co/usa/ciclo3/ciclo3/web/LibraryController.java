@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/Lib")
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class LibraryController {
 	@Autowired
 	private LibraryService libraryService;
@@ -37,13 +38,9 @@ public class LibraryController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Library> delete(@PathVariable("id") int idLibrary) {
-		try {
-			libraryService.deleteLibraryById(idLibrary);
-			return ResponseEntity.status(204).build();
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public Boolean deleteLibrary(@PathVariable("id") Integer id){
+		return libraryService.deleteLibrary(id);
 
 	}
 

@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/Client")
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class ClientController {
 	@Autowired
 	private ClientService clientService;
@@ -32,6 +33,7 @@ public class ClientController {
 		return clientService.save(client);
 	}
 
+
 	@PutMapping("/update")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Client update(@RequestBody Client client) {
@@ -39,13 +41,9 @@ public class ClientController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Client> delete(@PathVariable("id") int idClient) {
-		try {
-			clientService.deleteClient(idClient);
-			return ResponseEntity.status(204).build();
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public Boolean deleteClient(@PathVariable("id") int id){
+		return clientService.deleteClient(id);
 
 	}
 

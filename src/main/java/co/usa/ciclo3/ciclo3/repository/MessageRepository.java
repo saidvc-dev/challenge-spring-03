@@ -26,7 +26,7 @@ public class MessageRepository {
 		return messageCrudRepository.save(message);
 	}
 
-	public void deleteMessageById(int idMessage) {
-		messageCrudRepository.deleteById(idMessage);
+	public void deleteMessage(Message message) {
+		messageCrudRepository.delete(message);
 	}
 }

@@ -2,6 +2,7 @@ package co.usa.ciclo3.ciclo3.service;
 
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import co.usa.ciclo3.ciclo3.model.Score;
@@ -33,18 +34,29 @@ public class ScoreService {
 		}
 	}
 
+
 	public Score update(Score score) {
-		if (score.getId() != null) {
-			if (!scoreRepository.getScore(score.getId()).isEmpty()) {
-				return scoreRepository.save(score);
+		if(score.getId()!= null){
+			Optional<Score> s= scoreRepository.getScore(score.getId());
+			if(!s.isEmpty()){
+				if(score.getScore()!=null){
+					s.get().setScore(score.getScore());
+				}
+				if(score.getMessage()!=null){
+					s.get().setMessage(score.getMessage());
+				}
+				scoreRepository.save(s.get());
 			}
 		}
 		return score;
 	}
 
-	public String deleteScore(int idscore) {
-		scoreRepository.deleteById(idscore);
-		return " score delete";
+	public boolean deleteScore(int id){
+		Boolean s = getScore(id).map(score -> {
+			scoreRepository.deleteScore(score);
+			return true;
+		}).orElse(false);
+		return s;
 	}
 
 }

@@ -14,6 +14,7 @@ import java.util.Optional;
 @Slf4j
 @RestController
 @RequestMapping("/api/Category")
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class CategoryController {
 	@Autowired
 	private CategoryService categoryService;
@@ -42,13 +43,9 @@ public class CategoryController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Category> delete(@PathVariable("id") int idCategory) {
-		try {
-			categoryService.deleteCategory(idCategory);
-			return ResponseEntity.status(204).build();
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public Boolean deleteCategory(@PathVariable("id") int id){
+		return categoryService.deleteCategory(id);
 
 	}
 

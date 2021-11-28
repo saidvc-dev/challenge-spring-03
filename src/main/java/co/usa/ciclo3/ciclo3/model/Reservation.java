@@ -27,11 +27,7 @@ public class Reservation implements Serializable {
 	private String status;
 	@DateTimeFormat(pattern = "YYYY-mm-dd hh:mm:ss")
 	@JsonFormat(pattern = "YYYY-mm-dd HH:mm:ss", timezone = "GMT-5")
-	/*
-	 * Este campo no lo vi en la salida de las pruebas lo comento al igual que el
-	 * get y el set
-	 */
-	// private Date creationDate;
+
 
 	@ManyToOne
 	@JoinColumn(name = "library_id")

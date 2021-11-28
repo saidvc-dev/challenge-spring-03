@@ -34,17 +34,31 @@ public class MessageService {
 		}
 	}
 
+
 	public Message update(Message message) {
+        /*
 		if (message.getIdMessage() != null) {
 			if (!messageRepository.getMessage(message.getIdMessage()).isEmpty()) {
 				return messageRepository.save(message);
+        */
+		if(message.getIdMessage()!= null){
+			Optional<Message> m= messageRepository.getMessage(message.getIdMessage());
+			if(!m.isEmpty()){
+				if(message.getMessageText()!=null){
+					m.get().setMessageText(message.getMessageText());
+				}
+				messageRepository.save(m.get());
+
 			}
 		}
 		return message;
 	}
 
-	public String deleteMessageById(int idMessage) {
-		messageRepository.deleteMessageById(idMessage);
-		return "Message delete";
+	public boolean deleteMessage(int id){
+		Boolean m = getMessage(id).map(message -> {
+			messageRepository.deleteMessage(message);
+			return true;
+		}).orElse(false);
+		return m;
 	}
 }

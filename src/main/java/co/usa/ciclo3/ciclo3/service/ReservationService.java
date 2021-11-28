@@ -39,28 +39,44 @@ public class ReservationService {
 		}
 	}
 
+
 	public Reservation update(Reservation reservation) {
-		if (reservation.getIdReservation() != null) {
-			if (!reservationRepository.getReservation(reservation.getIdReservation()).isEmpty()) {
-				return reservationRepository.save(reservation);
+		if(reservation.getIdReservation()!= null){
+			Optional<Reservation> r= reservationRepository.getReservation(reservation.getIdReservation());
+			if(!r.isEmpty()){
+				if(reservation.getStartDate()!=null){
+					r.get().setStartDate(reservation.getStartDate());
+				}
+				if(reservation.getDevolutionDate()!=null){
+					r.get().setDevolutionDate(reservation.getDevolutionDate());
+				}
+				if(reservation.getStatus()!=null){
+					r.get().setStatus(reservation.getStatus());
+				}
+
+				reservationRepository.save(r.get());
 			}
 		}
 		return reservation;
 	}
 
-	public String deleteReservationById(int idReservation) {
-		reservationRepository.deteteReservationById(idReservation);
-		return "Reservation delete";
+	public boolean deleteReservation(int id){
+		Boolean r = getReservation(id).map(reservation -> {
+			reservationRepository.deleteReservation(reservation);
+			return true;
+		}).orElse(false);
+		return r;
 	}
 
-	public List<Reservation> datebyDate(String dateStart, String dateEnd) {
-		DateTimeFormatter formato = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-		LocalDate localDate1 = LocalDate.parse(dateStart, formato);
-		LocalDate localDate2 = LocalDate.parse(dateEnd, formato);
+	public List<Reservation> dateByDate(String dateStart, String dateEnd) {
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate localDate1 = LocalDate.parse(dateStart, format);
+		LocalDate localDate2 = LocalDate.parse(dateEnd, format);
 		Date date1 = Date.from(localDate1.atStartOfDay(ZoneId.systemDefault()).toInstant());
 		Date date2 = Date.from(localDate2.atStartOfDay(ZoneId.systemDefault()).toInstant());
 		return reservationRepository.getByDate(date1, date2);
 	}
+
 
 	public List<String> reservtionStatus() {
 		return reservationRepository.reservtionStatus();
@@ -68,6 +84,16 @@ public class ReservationService {
 
 	public List<Map<Object, Object>> reservationClient() {
 		return reservationRepository.reservtionClient();
+
+	 /*
+	public List<String> reservationStatus() {
+		return reservationRepository.reservationStatus();
+	}
+	
+	public Map<Object, Object> reservationClient() {
+		return reservationRepository.reservationClient();
+    */
+
 	}
 
 }

@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -21,7 +23,10 @@ public class Score implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private byte score;
+	@Max(value = 5)
+	@Min(value = 0)
+	@Column(name = "score")
+	private Integer score;
 	@Column(length = 250)
 	private String message;
 	@OneToOne()
@@ -33,7 +38,9 @@ public class Score implements Serializable {
 
 	}
 
-	public Score(int id, byte score, String message, Reservation reservation) {
+
+	
+	public Score(int id, Integer score, String message, Reservation reservation) {
 		super();
 		this.id = id;
 		this.score = score;
@@ -49,11 +56,10 @@ public class Score implements Serializable {
 		this.id = id;
 	}
 
-	public byte getScore() {
+	public Integer getScore() {
 		return score;
 	}
-
-	public void setScore(byte score) {
+	public void setScore(Integer score) {
 		this.score = score;
 	}
 

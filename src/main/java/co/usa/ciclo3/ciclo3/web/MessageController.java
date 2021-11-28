@@ -12,6 +12,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/Message")
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class MessageController {
 	@Autowired
 	private MessageService messageService;
@@ -32,6 +33,7 @@ public class MessageController {
 		return messageService.save(message);
 	}
 
+
 	@PutMapping("/update")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Message update(@RequestBody Message message) {
@@ -39,14 +41,9 @@ public class MessageController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Message> delete(@PathVariable("id") int idMessage) {
-		try {
-			messageService.deleteMessageById(idMessage);
-			return ResponseEntity.status(204).build();
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
-
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public Boolean deleteMessage(@PathVariable("id") int id){
+		return messageService.deleteMessage(id);
 	}
 
 }

@@ -28,16 +28,33 @@ public class ClientService {
 	}
 
 	public Client update(Client client) {
-		if (client.getIdClient() != null) {
-			if (!clientRepository.getClient(client.getIdClient()).isEmpty()) {
-				return clientRepository.save(client);
+		if(client.getIdClient()!= null){
+			Optional<Client> cl= clientRepository.getClient(client.getIdClient());
+			if(!cl.isEmpty()){
+				if(client.getEmail()!=null){
+					cl.get().setEmail(client.getEmail());
+				}
+				if(client.getPassword()!=null){
+					cl.get().setPassword(client.getPassword());
+				}
+				if(client.getName()!=null){
+					cl.get().setName(client.getName());
+				}
+				if(client.getAge()!=null){
+					cl.get().setAge(client.getAge());
+				}
+
+				clientRepository.save(cl.get());
 			}
 		}
 		return client;
 	}
 
-	public String deleteClient(int idClient) {
-		clientRepository.deleteClienById(idClient);
-		return "Client delete";
+	public boolean deleteClient(int id){
+		Boolean c = getClient(id).map(client -> {
+			clientRepository.deleteClient(client);
+			return true;
+		}).orElse(false);
+		return c;
 	}
 }

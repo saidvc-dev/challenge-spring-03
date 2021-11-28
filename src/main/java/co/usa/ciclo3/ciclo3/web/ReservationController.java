@@ -19,6 +19,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/Reservation")
+@CrossOrigin(origins = "*", methods= {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
 public class ReservationController {
 	@Autowired
 	private ReservationService reservationService;
@@ -42,6 +43,7 @@ public class ReservationController {
 		return reservationService.save(reservation);
 	}
 
+
 	@PutMapping("/update")
 	@ResponseStatus(HttpStatus.CREATED)
 	public Reservation update(@RequestBody Reservation reservation) {
@@ -49,22 +51,18 @@ public class ReservationController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Reservation> delete(@PathVariable("id") int idResevation) {
-		try {
-			reservationService.deleteReservationById(idResevation);
-			return ResponseEntity.status(204).build();
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-		}
-
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public Boolean deleteReservation(@PathVariable("id") int id){
+		return reservationService.deleteReservation(id);
 	}
 
 	@GetMapping("report-dates/{date1}/{date2}")
 	public List<Reservation> findReservation(@PathVariable("date1") String date1, @PathVariable("date2") String date2) {
-		return reservationService.datebyDate(date1, date2);
+		return reservationService.dateByDate(date1, date2);
 	}
 
 	@GetMapping("/report-status")
+
 	public Statistics reservtionStatus() {
 		List<String> statusResevation = reservationService.reservtionStatus();
 		String completed[] = statusResevation.get(0).split(",");
@@ -74,6 +72,12 @@ public class ReservationController {
 		   String cancelled[] = statusResevation.get(1).split(",");
 		   statistics.setCancelled(Integer.parseInt(cancelled[1]));
 		}
+  /*
+	public Map<String, String> reservationStatus() {
+		Map<String, String> counStatus = new HashMap<String, String>();
+		List<String> status = reservationService.reservationStatus();
+    */
+
 		
 		return statistics;
 		

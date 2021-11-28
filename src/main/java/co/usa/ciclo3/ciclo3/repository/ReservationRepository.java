@@ -32,9 +32,10 @@ public class ReservationRepository {
 		return reservationCrudRepository.save(reservation);
 	}
 
-	public void deteteReservationById(int idReservation) {
-		reservationCrudRepository.deleteById(idReservation);
+	public void deleteReservation(Reservation reservation) {
+		reservationCrudRepository.delete(reservation);
 	}
+
 
 	public List<String> reservtionStatus() {
 		return reservationCrudRepository.reservationStatus();
@@ -42,5 +43,7 @@ public class ReservationRepository {
 
 	public List<Map<Object, Object>> reservtionClient() {
 		return reservationCrudRepository.reservationClient();
+
+
 	}
 }
