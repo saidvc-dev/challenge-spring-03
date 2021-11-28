@@ -60,7 +60,7 @@ public class ReservationController {
 	}
 
 	@GetMapping("/report-status")
-	public Map<String, String> reservtionStatus() {
+	public Map<String, String> reservationStatus() {
 		Map<String, String> counStatus = new HashMap<String, String>();
 		List<String> status = reservationService.reservationStatus();
 		

@@ -40,7 +40,7 @@ public class LibraryController {
 
 	@DeleteMapping("/{id}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public Boolean deleteLibrary(@PathVariable("id") int id){
+	public Boolean deleteLibrary(@PathVariable("id") Integer id){
 		return libraryService.deleteLibrary(id);
 	}
 
